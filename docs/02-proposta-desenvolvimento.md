@@ -48,4 +48,31 @@ Foi utilizado o banco de dados relacional MySQL 8, integrado à aplicação por 
 
 As principais entidades são:
 
-- \*\*Produto
+- **Produto:** representa os produtos comercializados pela loja.
+- **Cliente:** armazena as informações dos clientes.
+- **Venda:** representa cada venda realizada.
+- **ItemVenda:** representa os produtos e quantidades associados a uma venda.
+
+Os repositórios Java realizam a comunicação entre a aplicação e o banco de dados.
+
+## 2.5. Funcionamento da arquitetura
+
+O funcionamento do sistema segue uma sequência organizada.
+
+Primeiro, o usuário realiza uma operação na interface, como cadastrar um produto ou registrar uma venda.
+
+O JavaScript envia uma requisição HTTP para a API REST.
+
+O Controller recebe a solicitação e encaminha o processamento à camada de negócios.
+
+O Service executa as regras necessárias e utiliza os repositórios para consultar ou atualizar os dados no MySQL.
+
+Por fim, a aplicação retorna uma resposta ao navegador, apresentando o resultado da operação ao usuário.
+
+## 2.6. Benefícios da arquitetura
+
+A separação em camadas facilita a organização do código, a manutenção e a evolução do sistema.
+
+Também permite modificar a interface sem alterar diretamente a lógica de negócio, além de organizar as operações de acesso ao banco de dados.
+
+Dessa forma, o Sistema Pronta Entrega aplica conceitos fundamentais do desenvolvimento de sistemas corporativos utilizando Java, Spring Boot e arquitetura em três camadas.
