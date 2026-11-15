@@ -48,7 +48,16 @@ public class VendaService {
 
                 for (Map<String, Long> item : produtos) {
 
+                        if (item == null
+                                        || !(item.get("produtoId") instanceof Number)
+                                        || !(item.get("quantidade") instanceof Number)) {
+
+                                throw new IllegalArgumentException(
+                                                "Produto ou quantidade inválida");
+                        }
+
                         Long produtoId = ((Number) item.get("produtoId")).longValue();
+
                         Long quantidadeSolicitada = ((Number) item.get("quantidade")).longValue();
 
                         if (produtoId == null || quantidadeSolicitada == null
