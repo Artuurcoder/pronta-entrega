@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pronta Entrega | Clientes</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+            margin: 0;
+            padding: 40px;
+            color: #172033;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #2864ad;
+            color: white;
+            border: none;
+            padding: 11px 18px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Pronta Entrega</h1>
+    <p>Cadastro de clientes da loja</p>
+
+    <div class="card">
+        <h2>Cadastrar cliente</h2>
+
+        <form id="formCliente">
+            <input type="hidden" id="clienteId">
+
+            <input type="text" id="nome"
+                   placeholder="Nome do cliente" required>
+
+            <input type="text" id="cpfCnpj"
+                   placeholder="CPF ou CNPJ">
+
+            <input type="text" id="telefone"
+                   placeholder="Telefone">
+
+            <input type="text" id="endereco"
+                   placeholder="Endereço">
+
+            <button type="submit">Salvar cliente</button>
+        </form>
+
+        <p id="mensagem" role="status"></p>
+    </div>
+
+    <div class="card">
+        <h2>Clientes cadastrados</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF/CNPJ</th>
+                    <th>Telefone</th>
+                    <th>Endereço</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody id="listaClientes"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script src="clientes.js"></script>
+<script src="/menu.js"></script>
+</body>
+</html>

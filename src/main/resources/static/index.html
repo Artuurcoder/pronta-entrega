@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+  <title>Pronta Entrega | Produtos</title>
+
+  <link rel="stylesheet" href="/style.css">
+
+  <style>
+    /*
+     * Esconder recursos administrativos
+     * enquanto o perfil não for confirmado.
+     */
+    body:not(.perfil-admin) #painel-admin {
+      display: none !important;
+    }
+
+    body:not(.perfil-admin) #tabela-produtos th:last-child,
+    body:not(.perfil-admin) #tabela-produtos td:last-child {
+      display: none !important;
+    }
+
+    #aviso-perfil {
+      color: #c0392b;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <header>
+      <span class="eyebrow">SISTEMA DE ESTOQUE</span>
+
+      <h1>Pronta Entrega</h1>
+
+      <p>Controle de roupas para vendas no atacado</p>
+    </header>
+
+    <p id="aviso-perfil" role="alert" hidden></p>
+
+    <!-- Área exclusiva do administrador -->
+    <section class="panel" id="painel-admin">
+
+      <h2 id="form-title">Cadastrar produto</h2>
+
+      <form id="form-produto">
+
+        <input type="hidden" id="id">
+
+        <div class="fields">
+
+          <label>
+            Nome do produto
+            <input id="nome"
+                   maxlength="255"
+                   required
+                   placeholder="Ex.: Camiseta básica">
+          </label>
+
+          <label>
+            Tipo
+            <input id="tipo"
+                   required
+                   placeholder="Ex.: Camiseta">
+          </label>
+
+          <label>
+            Tamanho
+            <input id="tamanho"
+                   required
+                   placeholder="Ex.: M">
+          </label>
+
+          <label>
+            Preço (R$)
+            <input id="preco"
+                   type="number"
+                   min="0.01"
+                   step="0.01"
+                   required
+                   placeholder="25.00">
+          </label>
+
+          <label>
+            Quantidade
+            <input id="quantidade"
+                   type="number"
+                   min="0"
+                   step="1"
+                   required
+                   placeholder="100">
+          </label>
+
+        </div>
+
+        <div class="actions">
+
+          <button type="submit">
+            Salvar produto
+          </button>
+
+          <button type="button"
+                  class="secondary"
+                  id="cancelar"
+                  hidden>
+            Cancelar edição
+          </button>
+
+        </div>
+
+      </form>
+
+      <p id="mensagem"
+         role="status"
+         aria-live="polite"></p>
+
+    </section>
+
+    <!-- Consulta disponível aos usuários autorizados -->
+    <section class="panel">
+
+      <div class="section-title">
+
+        <h2>Produtos cadastrados</h2>
+
+        <input id="busca"
+               placeholder="Buscar por nome"
+               aria-label="Buscar por nome">
+
+      </div>
+
+      <div class="table-scroll">
+
+        <table id="tabela-produtos">
+
+          <thead>
+            <tr>
+              <th>Produto</th>
+              <th>Tipo</th>
+              <th>Tamanho</th>
+              <th>Preço</th>
+              <th>Estoque</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+
+          <tbody id="lista">
+            <tr>
+              <td colspan="6">Carregando...</td>
+            </tr>
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+    <footer>
+      Etapa 4 · Projeto acadêmico ·
+      Sistema Pronta Entrega
+    </footer>
+
+  </main>
+
+  <!-- Identificação do perfil de acesso -->
+  <script>
+    async function configurarPermissoes() {
+
+      const aviso = document.getElementById("aviso-perfil");
+
+      try {
+        const resposta = await fetch("/api/usuario", {
+          credentials: "same-origin",
+          cache: "no-store"
+        });
+
+        if (!resposta.ok || resposta.redirected) {
+          throw new Error(
+            "Não foi possível identificar o usuário conectado."
+          );
+        }
+
+        const usuario = await resposta.json();
+
+        const administrador =
+          Array.isArray(usuario.roles) &&
+          usuario.roles.includes("ROLE_ADMIN");
+
+        if (administrador) {
+          document.body.classList.add("perfil-admin");
+        } else {
+          document.body.classList.add("perfil-funcionario");
+        }
+
+      } catch (erro) {
+
+        console.error("Erro ao verificar permissões:", erro);
+
+        aviso.textContent =
+          "Não foi possível verificar suas permissões. " +
+          "Atualize a página ou entre novamente.";
+
+        aviso.hidden = false;
+      }
+    }
+
+    configurarPermissoes();
+  </script>
+
+  <!-- Scripts existentes -->
+  <script src="/app.js" defer></script>
+  <script src="/menu.js"></script>
+
+</body>
+</html>

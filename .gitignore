@@ -1,0 +1,42 @@
+
+# Arquivos gerados pelo Maven
+target/
+
+# Arquivos compilados
+*.class
+*.jar
+*.war
+
+# Configurações do VS Code
+.vscode/
+
+# Configurações do IntelliJ e Eclipse
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# Arquivos temporários e logs
+*.log
+*.tmp
+*.bak
+erro-spring.txt
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Variáveis de ambiente e segredos
+.env
+.env.*
+!.env.example
+
+# Arquivos de configuração local com senhas
+application-local.properties
+application-secret.properties
+
+# Backups e exportações de banco de dados
+*.sql.gz
+*.dump
+*.bak.sql
